@@ -37,6 +37,7 @@
       min-height: 100svh;
       display: grid;
       grid-template-columns: 1fr 1fr;
+      background: var(--cream);
     }
 
     /* ── LEFT PANEL ─────────────────────────────────────────── */
@@ -44,10 +45,10 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 48px 56px 48px 56px;
+      padding: 48px 56px 48px 96px;
       position: relative;
       z-index: 2;
-      background: var(--cream);
+      background: transparent;
     }
 
     /* Logo */
@@ -65,6 +66,7 @@
       color: var(--blue);
       letter-spacing: 0.04em;
       line-height: 1;
+      font-style: italic;
     }
 
     .logo .dot {
@@ -72,6 +74,7 @@
       font-size: 28px;
       color: var(--pink);
       line-height: 1;
+      font-style: italic;
     }
 
     .logo .word {
@@ -82,6 +85,7 @@
       color: var(--muted);
       margin-left: 9px;
       align-self: center;
+      font-style: italic;
     }
 
     /* Main content */
@@ -91,12 +95,15 @@
       gap: 0;
     }
 
+    .main .headline {
+      margin-top: 16px;
+    }
+
     /* Coming soon eyebrow */
     .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      margin-bottom: 28px;
       opacity: 0;
       animation: fadeUp 0.5s ease forwards 0.2s;
     }
@@ -132,7 +139,7 @@
 
     .headline .pink    { color: var(--pink); }
     .headline .outline {
-      -webkit-text-stroke: 2.5px var(--blue);
+      -webkit-text-stroke: 0.04px var(--blue);
       color: transparent;
     }
 
@@ -301,16 +308,18 @@
       animation: zoomIn 1.8s ease forwards;
     }
 
-    /* Cream bleed from left */
+    /* Soft cream bleed from left — no hard edge */
     .right::before {
       content: '';
       position: absolute;
       inset: 0;
       background: linear-gradient(
-        108deg,
+        to right,
         var(--cream) 0%,
-        rgba(250,243,235,0.08) 25%,
-        transparent 45%
+        rgba(250,243,235,0.85) 15%,
+        rgba(250,243,235,0.4) 30%,
+        rgba(250,243,235,0.1) 50%,
+        transparent 70%
       );
       z-index: 1;
       pointer-events: none;
@@ -485,13 +494,14 @@
         <span class="word">Pilates</span>
       </a>
 
+      <!-- Eyebrow — centered between logo and headline -->
+      <div class="eyebrow">
+        <div class="pip"></div>
+        <span>Coming Soon · Port Stephens</span>
+      </div>
+
       <!-- Main content -->
       <div class="main">
-
-        <div class="eyebrow">
-          <div class="pip"></div>
-          <span>Coming Soon · Port Stephens</span>
-        </div>
 
         <h1 class="headline">
           A NEW<br>
@@ -505,7 +515,7 @@
         </p>
 
         <div class="form-wrap">
-          <span class="form-label">Get early access</span>
+          <span class="form-label">Our waitlist is open — founding member pricing available</span>
           <div class="form-row" id="formRow">
             <input
               class="form-input"
@@ -515,7 +525,7 @@
               autocomplete="email"
             />
             <button class="form-btn" id="submitBtn">
-              Notify Me →
+              Join Waitlist →
             </button>
           </div>
           <div class="form-success" id="formSuccess">
@@ -528,15 +538,7 @@
       </div>
 
       <!-- Footer row -->
-      <div class="foot">
-        <div class="foot-loc">
-          <span class="pin">📍</span>
-          <span>Salamander Bay · Port Stephens, NSW</span>
-        </div>
-        <a href="https://instagram.com/revpilates_" target="_blank" class="foot-ig">
-          @revpilates_
-        </a>
-      </div>
+      <div class="foot"></div>
 
     </div>
 
@@ -544,7 +546,7 @@
     <div class="right">
       <img
         class="right-img"
-        src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1400&q=85&fit=crop&crop=top"
+        src="https://images.unsplash.com/photo-1747239891485-0f98c4ee9c76?q=80&w=2157&auto=format&fit=crop"
         alt="REV Pilates"
       />
       <div class="img-label">
