@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A new level of Pilates is coming to Port Stephens. Sign up for early access." />
+  <title>REV. Pilates — Coming Soon · Port Stephens</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:  #032EC9;
+      --blue-dk: #0224a0;
+      --cream: #FAF3EB;
+      --pink:  #FF8CD1;
+      --muted: rgba(3, 46, 201, 0.42);
+    }
+
+    html, body {
+      height: 100%;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--blue);
+      overflow-x: hidden;
+    }
+
+    /* ── FULL PAGE LAYOUT ───────────────────────────────────── */
+    .page {
+      min-height: 100svh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* ── LEFT PANEL ─────────────────────────────────────────── */
+    .left {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 48px 56px 48px 56px;
+      position: relative;
+      z-index: 2;
+      background: var(--cream);
+    }
+
+    /* Logo */
+    .logo {
+      display: flex;
+      align-items: baseline;
+      text-decoration: none;
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards 0.1s;
+    }
+
+    .logo .rev {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      color: var(--blue);
+      letter-spacing: 0.04em;
+      line-height: 1;
+    }
+
+    .logo .dot {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      color: var(--pink);
+      line-height: 1;
+    }
+
+    .logo .word {
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-left: 9px;
+      align-self: center;
+    }
+
+    /* Main content */
+    .main {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* Coming soon eyebrow */
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards 0.2s;
+    }
+
+    .eyebrow .pip {
+      width: 7px;
+      height: 7px;
+      background: var(--pink);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    .eyebrow span {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* Big headline */
+    .headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(64px, 7.5vw, 112px);
+      line-height: 0.9;
+      letter-spacing: 0.02em;
+      color: var(--blue);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.3s;
+    }
+
+    .headline .pink    { color: var(--pink); }
+    .headline .outline {
+      -webkit-text-stroke: 2.5px var(--blue);
+      color: transparent;
+    }
+
+    /* Sub copy */
+    .sub {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--muted);
+      max-width: 380px;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.42s;
+    }
+
+    /* Email form */
+    .form-wrap {
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.54s;
+    }
+
+    .form-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .form-row {
+      display: flex;
+      max-width: 420px;
+    }
+
+    .form-input {
+      flex: 1;
+      background: white;
+      border: 1.5px solid rgba(3, 46, 201, 0.18);
+      border-right: none;
+      padding: 14px 18px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--blue);
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+      border-radius: 0;
+    }
+
+    .form-input::placeholder { color: rgba(3,46,201,0.3); }
+    .form-input:focus { border-color: var(--blue); }
+    .form-input.error { border-color: #e82a1a; }
+
+    .form-btn {
+      background: var(--blue);
+      color: var(--cream);
+      border: none;
+      padding: 14px 22px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.22s;
+      white-space: nowrap;
+      border-radius: 0;
+      clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+    }
+
+    .form-btn:hover { background: var(--blue-dk); }
+
+    .form-fine {
+      font-size: 11px;
+      font-weight: 300;
+      color: rgba(3,46,201,0.3);
+      margin-top: 10px;
+    }
+
+    /* Success */
+    .form-success {
+      display: none;
+      align-items: center;
+      gap: 14px;
+      background: rgba(3,46,201,0.06);
+      border: 1px solid rgba(3,46,201,0.12);
+      padding: 16px 20px;
+      max-width: 420px;
+    }
+
+    .success-check {
+      width: 26px;
+      height: 26px;
+      background: var(--pink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: var(--blue);
+      flex-shrink: 0;
+    }
+
+    .success-text {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--blue);
+      line-height: 1.5;
+    }
+
+    /* Footer row */
+    .foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.7s;
+    }
+
+    .foot-loc {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .foot-loc .pin {
+      font-size: 12px;
+    }
+
+    .foot-loc span {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    .foot-ig {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .foot-ig:hover { color: var(--blue); }
+
+    /* ── RIGHT PANEL — IMAGE ────────────────────────────────── */
+    .right {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .right-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 15%;
+      display: block;
+      transform: scale(1.06);
+      animation: zoomIn 1.8s ease forwards;
+    }
+
+    /* Cream bleed from left */
+    .right::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        108deg,
+        var(--cream) 0%,
+        rgba(250,243,235,0.08) 25%,
+        transparent 45%
+      );
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Pink top stripe */
+    .right::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--pink);
+      z-index: 2;
+    }
+
+    /* Blue overlay bottom — "Port Stephens" label */
+    .img-label {
+      position: absolute;
+      bottom: 48px;
+      right: 32px;
+      z-index: 3;
+      text-align: right;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.9s;
+    }
+
+    .img-label .label-top {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: rgba(250,243,235,0.6);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .img-label .label-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 0.06em;
+      color: var(--cream);
+      line-height: 1;
+      display: block;
+    }
+
+    /* Blue gradient behind label for legibility */
+    .img-label::before {
+      content: '';
+      position: absolute;
+      inset: -20px -24px;
+      background: radial-gradient(ellipse at center, rgba(3,46,201,0.5) 0%, transparent 70%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* ── TICKER ─────────────────────────────────────────────── */
+    .ticker {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--blue);
+      overflow: hidden;
+      padding: 9px 0;
+      z-index: 50;
+    }
+
+    .ticker-track {
+      display: flex;
+      width: max-content;
+      animation: ticker 26s linear infinite;
+    }
+
+    .ticker-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 0 28px;
+      white-space: nowrap;
+    }
+
+    .ticker-item span {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      color: var(--cream);
+    }
+
+    .ticker-sep {
+      width: 5px;
+      height: 5px;
+      background: var(--pink);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── ANIMATIONS ─────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(1.12); }
+      to   { transform: scale(1.04); }
+    }
+
+    @keyframes pulse {
+      0%,100% { opacity: 0.5; transform: scale(1); }
+      50%      { opacity: 1;   transform: scale(1.4); }
+    }
+
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── MOBILE ─────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .page {
+        grid-template-columns: 1fr;
+        min-height: 100svh;
+        position: relative;
+      }
+
+      /* Image fills the whole background */
+      .right {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        opacity: 0.15;
+      }
+
+      .right::before,
+      .right::after { display: none; }
+
+      .img-label { display: none; }
+
+      /* Left panel fills screen */
+      .left {
+        position: relative;
+        z-index: 2;
+        min-height: 100svh;
+        padding: 36px 28px 80px;
+        background: transparent;
+      }
+
+      .headline { font-size: clamp(60px, 16vw, 88px); }
+
+      .form-row { flex-direction: column; }
+      .form-input { border-right: 1.5px solid rgba(3,46,201,0.18); }
+      .form-btn { clip-path: none; padding: 14px; }
+
+      .foot-ig { display: none; }
+    }
+
+    @media (max-width: 400px) {
+      .left { padding: 32px 20px 80px; }
+      .headline { font-size: clamp(52px, 15vw, 76px); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MAIN PAGE -->
+  <div class="page">
+
+    <!-- LEFT -->
+    <div class="left">
+
+      <!-- Logo -->
+      <a href="#" class="logo">
+        <span class="rev">REV</span><span class="dot">.</span>
+        <span class="word">Pilates</span>
+      </a>
+
+      <!-- Main content -->
+      <div class="main">
+
+        <div class="eyebrow">
+          <div class="pip"></div>
+          <span>Coming Soon · Port Stephens</span>
+        </div>
+
+        <h1 class="headline">
+          A NEW<br>
+          LEVEL OF<br>
+          <span class="pink">PILATES</span><br>
+          IS <span class="outline">COMING.</span>
+        </h1>
+
+        <p class="sub">
+          Modern reformer Pilates is coming to Port Stephens. Strength, mobility, and bloody good vibes — 45 minutes at a time. Be the first to know.
+        </p>
+
+        <div class="form-wrap">
+          <span class="form-label">Get early access</span>
+          <div class="form-row" id="formRow">
+            <input
+              class="form-input"
+              type="email"
+              id="emailInput"
+              placeholder="your@email.com"
+              autocomplete="email"
+            />
+            <button class="form-btn" id="submitBtn">
+              Notify Me →
+            </button>
+          </div>
+          <div class="form-success" id="formSuccess">
+            <div class="success-check">✓</div>
+            <p class="success-text">You're on the list! We'll be in touch before launch.</p>
+          </div>
+          <p class="form-fine">No spam. Just the good stuff.</p>
+        </div>
+
+      </div>
+
+      <!-- Footer row -->
+      <div class="foot">
+        <div class="foot-loc">
+          <span class="pin">📍</span>
+          <span>Salamander Bay · Port Stephens, NSW</span>
+        </div>
+        <a href="https://instagram.com/revpilates_" target="_blank" class="foot-ig">
+          @revpilates_
+        </a>
+      </div>
+
+    </div>
+
+    <!-- RIGHT — image -->
+    <div class="right">
+      <img
+        class="right-img"
+        src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1400&q=85&fit=crop&crop=top"
+        alt="REV Pilates"
+      />
+      <div class="img-label">
+        <span class="label-top">Coming Soon</span>
+        <span class="label-name">Port Stephens</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TICKER — fixed at bottom -->
+  <div class="ticker">
+    <div class="ticker-track">
+      <div class="ticker-item"><span>Coming Soon</span><div class="ticker-sep"></div></div>
+      <div class="ticker-item"><span>Port Stephens NSW</span><div class="ticker-sep"></div></div>
+      <div class="ticker-item"><span>Modern Reformer Pilates</span><div class="ticker-sep"></div></div>
+      <div class="ticker-item"><span>Strength · Mobility · Flow</span><div class="ticker-sep"></div></div>
+      <div class="ticker-item"><span>Max 12 Per Class</span><div class="ticker-sep"></div></div>
+      <div class="ticker-item"><span>Sign Up For Early Access</span><div class="ticker-sep"></div></div>
+      <div class="ticker-item"><span>Coming Soon</span><div class="ticker-sep"></div></div>
+      <div class="ticker-item"><span>Port Stephens NSW</span><div class="ticker-sep"></div></div>
+      <div class="ticker-item"><span>Modern Reformer Pilates</span><div class="ticker-sep"></div></div>
+      <div class="ticker-item"><span>Strength · Mobility · Flow</span><div class="ticker-sep"></div></div>
+      <div class="ticker-item"><span>Max 12 Per Class</span><div class="ticker-sep"></div></div>
+      <div class="ticker-item"><span>Sign Up For Early Access</span><div class="ticker-sep"></div></div>
+    </div>
+  </div>
+
+  <script>
+    // Nav scroll effect (not needed on this page but kept for consistency)
+    const btn = document.getElementById('submitBtn');
+    const input = document.getElementById('emailInput');
+    const formRow = document.getElementById('formRow');
+    const success = document.getElementById('formSuccess');
+
+    function handleSubmit() {
+      const email = input.value.trim();
+
+      if (!email || !email.includes('@') || !email.includes('.')) {
+        input.classList.add('error');
+        input.focus();
+        setTimeout(() => input.classList.remove('error'), 1500);
+        return;
+      }
+
+      // Hide form, show success
+      formRow.style.display = 'none';
+      success.style.display = 'flex';
+
+      // 👇 TODO: wire up to your email service here
+      // e.g. Mailchimp, Tally, Resend, or a simple fetch POST
+      console.log('Email captured:', email);
+    }
+
+    btn.addEventListener('click', handleSubmit);
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') handleSubmit();
+    });
+  </script>
+
+</body>
+</html>
