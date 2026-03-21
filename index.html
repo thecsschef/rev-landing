@@ -35,56 +35,60 @@
     /* ── FULL PAGE LAYOUT ───────────────────────────────────── */
     .page {
       min-height: 100svh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: flex;
+      flex-direction: column;
       background: var(--cream);
     }
 
-    /* ── LEFT PANEL ─────────────────────────────────────────── */
+    /* ── MAIN PANEL ─────────────────────────────────────────── */
     .left {
+      flex: 1;
       display: flex;
       flex-direction: column;
+      align-items: center;
       justify-content: space-between;
-      padding: 48px 56px 48px 96px;
+      padding: 48px 48px 48px 48px;
       position: relative;
       z-index: 2;
-      background: transparent;
+      background: var(--cream);
+      text-align: center;
     }
 
-    /* Logo */
+    /* Logo — back to top left */
     .logo {
       display: flex;
       align-items: baseline;
       text-decoration: none;
       opacity: 0;
       animation: fadeUp 0.5s ease forwards 0.1s;
+      align-self: flex-start;
     }
 
     .logo .rev {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 28px;
-      color: var(--blue);
-      letter-spacing: 0.04em;
+      font-size: 26px;
+      color: #032EC9;
+      letter-spacing: 0.06em;
       line-height: 1;
       font-style: italic;
     }
 
     .logo .dot {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 28px;
+      font-size: 26px;
       color: var(--pink);
       line-height: 1;
       font-style: italic;
     }
 
     .logo .word {
-      font-size: 9px;
-      font-weight: 400;
-      letter-spacing: 0.28em;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: var(--muted);
-      margin-left: 9px;
-      align-self: center;
+      color: rgba(3, 46, 201, 0.45);
+      margin-left: 5px;
+      align-self: baseline;
       font-style: italic;
     }
 
@@ -92,20 +96,23 @@
     .main {
       display: flex;
       flex-direction: column;
+      align-items: center;
       gap: 0;
+      width: 100%;
     }
 
     .main .headline {
-      margin-top: 16px;
+      margin-top: 0;
     }
 
-    /* Coming soon eyebrow */
+    /* Coming soon eyebrow — tight to headline */
     .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 8px;
       opacity: 0;
       animation: fadeUp 0.5s ease forwards 0.2s;
+      margin-bottom: 12px;
     }
 
     .eyebrow .pip {
@@ -125,22 +132,37 @@
       color: var(--muted);
     }
 
-    /* Big headline */
+    /* Big headline — two lines, centred */
     .headline {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(64px, 7.5vw, 112px);
-      line-height: 0.9;
-      letter-spacing: 0.02em;
+      font-size: clamp(44px, 8vw, 120px);
+      line-height: 0.95;
+      letter-spacing: 0.03em;
       color: var(--blue);
-      margin-bottom: 28px;
+      margin-bottom: 32px;
       opacity: 0;
       animation: fadeUp 0.6s ease forwards 0.3s;
+      white-space: nowrap;
     }
 
-    .headline .pink    { color: var(--pink); }
+    .headline .pink {
+      color: var(--pink);
+      text-shadow: 0 2px 24px rgba(255, 140, 209, 0.2), 0 1px 4px rgba(255, 140, 209, 0.12);
+    }
+
     .headline .outline {
-      -webkit-text-stroke: 0.01px var(--blue);
       color: transparent;
+      -webkit-text-stroke: 1.5px #032EC9;
+      text-shadow: none;
+    }
+
+    /* SVG inline text replacement for clean outline */
+    .coming-svg {
+      display: inline-block;
+      height: 0.95em;
+      width: auto;
+      vertical-align: baseline;
+      overflow: visible;
     }
 
     /* Sub copy */
@@ -149,16 +171,21 @@
       font-weight: 300;
       line-height: 1.75;
       color: var(--muted);
-      max-width: 380px;
-      margin-bottom: 40px;
+      max-width: 480px;
+      margin-bottom: 36px;
       opacity: 0;
       animation: fadeUp 0.6s ease forwards 0.42s;
+      text-align: center;
     }
 
     /* Email form */
     .form-wrap {
       opacity: 0;
       animation: fadeUp 0.6s ease forwards 0.54s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
     }
 
     .form-label {
@@ -174,6 +201,7 @@
     .form-row {
       display: flex;
       max-width: 420px;
+      width: 100%;
     }
 
     .form-input {
@@ -190,6 +218,7 @@
       transition: border-color 0.2s;
       -webkit-appearance: none;
       border-radius: 0;
+      min-width: 0;
     }
 
     .form-input::placeholder { color: rgba(3,46,201,0.3); }
@@ -437,46 +466,19 @@
 
     /* ── MOBILE ─────────────────────────────────────────────── */
     @media (max-width: 768px) {
-      .page {
-        grid-template-columns: 1fr;
-        min-height: 100svh;
-        position: relative;
+      .left { padding: 36px 24px 80px; }
+      .headline {
+        font-size: clamp(36px, 10vw, 64px);
+        white-space: normal;
+        text-align: center;
       }
-
-      /* Image fills the whole background */
-      .right {
-        position: fixed;
-        inset: 0;
-        z-index: 0;
-        opacity: 0.15;
-      }
-
-      .right::before,
-      .right::after { display: none; }
-
-      .img-label { display: none; }
-
-      /* Left panel fills screen */
-      .left {
-        position: relative;
-        z-index: 2;
-        min-height: 100svh;
-        padding: 36px 28px 80px;
-        background: transparent;
-      }
-
-      .headline { font-size: clamp(60px, 16vw, 88px); }
-
-      .form-row { flex-direction: column; }
+      .form-row { flex-direction: column; width: 100%; max-width: 100%; }
       .form-input { border-right: 1.5px solid rgba(3,46,201,0.18); }
       .form-btn { clip-path: none; padding: 14px; }
-
-      .foot-ig { display: none; }
     }
 
     @media (max-width: 400px) {
       .left { padding: 32px 20px 80px; }
-      .headline { font-size: clamp(52px, 15vw, 76px); }
     }
   </style>
 </head>
@@ -504,9 +506,7 @@
       <div class="main">
 
         <h1 class="headline">
-          A NEW<br>
-          LEVEL OF<br>
-          <span class="pink">PILATES</span><br>
+          A NEW LEVEL OF <span class="pink">PILATES</span><br>
           IS <span class="outline">COMING.</span>
         </h1>
 
@@ -542,19 +542,6 @@
 
     </div>
 
-    <!-- RIGHT — image -->
-    <div class="right">
-      <img
-        class="right-img"
-        src="https://images.unsplash.com/photo-1747239891485-0f98c4ee9c76?q=80&w=2157&auto=format&fit=crop"
-        alt="REV Pilates"
-      />
-      <div class="img-label">
-        <span class="label-top">Coming Soon</span>
-        <span class="label-name">Port Stephens</span>
-      </div>
-    </div>
-
   </div>
 
   <!-- TICKER — fixed at bottom -->
@@ -576,33 +563,47 @@
   </div>
 
   <script>
-    // Nav scroll effect (not needed on this page but kept for consistency)
     const btn = document.getElementById('submitBtn');
-    const input = document.getElementById('emailInput');
+    const emailInput = document.getElementById('emailInput');
     const formRow = document.getElementById('formRow');
     const success = document.getElementById('formSuccess');
 
-    function handleSubmit() {
-      const email = input.value.trim();
+    async function handleSubmit() {
+      const email = emailInput.value.trim();
 
       if (!email || !email.includes('@') || !email.includes('.')) {
-        input.classList.add('error');
-        input.focus();
-        setTimeout(() => input.classList.remove('error'), 1500);
+        emailInput.classList.add('error');
+        emailInput.focus();
+        setTimeout(() => emailInput.classList.remove('error'), 1500);
         return;
       }
 
-      // Hide form, show success
-      formRow.style.display = 'none';
-      success.style.display = 'flex';
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
 
-      // 👇 TODO: wire up to your email service here
-      // e.g. Mailchimp, Tally, Resend, or a simple fetch POST
-      console.log('Email captured:', email);
+      try {
+        const res = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+
+        if (res.ok) {
+          formRow.style.display = 'none';
+          success.style.display = 'flex';
+        } else {
+          throw new Error('Failed');
+        }
+      } catch (err) {
+        btn.textContent = 'Try again →';
+        btn.disabled = false;
+        emailInput.classList.add('error');
+        setTimeout(() => emailInput.classList.remove('error'), 1500);
+      }
     }
 
     btn.addEventListener('click', handleSubmit);
-    input.addEventListener('keydown', e => {
+    emailInput.addEventListener('keydown', e => {
       if (e.key === 'Enter') handleSubmit();
     });
   </script>
