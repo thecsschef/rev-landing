@@ -17,7 +17,7 @@ export default async function handler(req, res) {
     await resend.emails.send({
       from: 'REV. Pilates <hello@revpilates.com.au>',
       to: email,
-      subject: "You're on the list.",
+      subject: "REV. Pilates — waitlist confirmation",
       html: `
         <!DOCTYPE html>
         <html lang="en">
